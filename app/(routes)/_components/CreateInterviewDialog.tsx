@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 
 import {
@@ -16,9 +16,17 @@ import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ResumeUpload from './ResumeUpload'
 import JobDescription from './JobDescription'
-import { DialogClose } from '@radix-ui/react-dialog'
-import { Ghost } from 'lucide-react'
+import { DialogClose } from '@radix-ui/react-dialog' 
 function CreateInterviewDialog() {
+  const [formData,setFormData]=useState<any>();
+
+const onHandleInputChange=(field:string,value:string)=>{
+setFormData((prev:any)=>({
+  ...prev,
+  [field]:value
+}))
+}
+
   return (
    <Dialog>
   <DialogTrigger> <Button>+ Create Inteview</Button></DialogTrigger>
@@ -32,7 +40,7 @@ function CreateInterviewDialog() {
                  <TabsTrigger value="job-description">Job Description</TabsTrigger>
              </TabsList>
         <TabsContent value="resume-upload"><ResumeUpload/></TabsContent>
-        <TabsContent value="password"><JobDescription/></TabsContent>
+        <TabsContent value="job-description"><JobDescription onHandleInputChange={onHandleInputChange} /></TabsContent>
 </Tabs>
       </DialogDescription>
     </DialogHeader>
